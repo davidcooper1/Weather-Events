@@ -21,9 +21,9 @@ c.on("end", () => {
 	
 });
 
-c.connect({
+/* c.connect({
 	host: "ftp.ncdc.noaa.gov"
-});
+}); */
 
 function getLocationAndFatalityFiles(c, list) {
 	for (var i = 0; i < list.length; i++) {
