@@ -5,15 +5,16 @@
 	</head>
 	<body>
 		<script src="js/load_libs.js"></script>
-		<script src="js/data.js"></script>
-		<script src="js/convert.js"></script>
-		<script src="js/database.js"></script>
+		<!--<script src="js/new_database.js"></script>-->
+		<script src="js/query_database.js"></script>
 		<div class="container">
-			<h2>Download Progress<h2>
-			<div class="progress">
-				<div id="downloadbar" class="progress-bar" role="progressbar" style="width:100%">
-					100%
+			<form>
+				<div class="form-group">
+					<label for="query">SQL Query:</label>
+					<textarea class="form-control" rows="7" id="query"></textarea>
 				</div>
-			</div>
+				<button type="button" class="btn btn-primary btn-lg" onclick="allQuery($('#query').val())">Submit</button>
+			</form>
+		</div>
 	</body>
 </html>
