@@ -1,3 +1,5 @@
+// This script will download the NOAA's NWS Storm Events Database as multiple CSV files.
+
 var Client = require("ftp");
 var fs = require("fs");
 var zlib = require("zlib");
@@ -13,6 +15,10 @@ c.on("ready", () => {
 		getLocationAndFatalityFiles(c, list);
 		c.end();
 	});
+});
+
+c.on("end", () => {
+	
 });
 
 c.connect({
@@ -31,7 +37,7 @@ function getLocationAndFatalityFiles(c, list) {
 				function setDelay() {
 					toDelay = setTimeout(() => {
 						stream.end();
-					}, 200);
+					}, 100);
 				}
 				stream.once("close", () => { console.log(fn + "done.") });
 				stream.on("data", (chunk) => { 
