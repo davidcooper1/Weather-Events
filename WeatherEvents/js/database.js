@@ -62,6 +62,16 @@ function getEventList() {
 openDatabase();
 db.serialize(() => {
 	db.run(
+		"CREATE TABLE IF NOT EXISTS locations (\
+			cz_fips			INTEGER,\
+			state_fips		INTEGER,\
+			cz_type			TEXT,\
+			cz_name			TEXT,\
+			state_name		TEXT,\
+			PRIMARY KEY(cz_fips, state_fips)\
+		);", [], (err) => {
+			console.log("Weather Events table created!");
+	}).run(
 		"CREATE TABLE IF NOT EXISTS weather_events (\
 			event_id		INTEGER,\
 			episode_id		INTEGER,\
@@ -73,17 +83,7 @@ db.serialize(() => {
 			cz_fips			INTEGER,\
 			state_fips		INTEGER,\
 			PRIMARY KEY (event_id),\
-			FOREIGN KEY (cz_fips, state_fips) references location\
-		);", [], (err) => {
-			console.log("Weather Events table created!");
-	}).run(
-		"CREATE TABLE IF NOT EXISTS locations (\
-			cz_fips			INTEGER,\
-			state_fips		INTEGER,\
-			cz_type			TEXT,\
-			cz_name			TEXT,\
-			state_name		TEXT,\
-			PRIMARY KEY(cz_fips, state_fips)\
+			FOREIGN KEY (cz_fips, state_fips) references locations\
 		);", [], (err) => {
 			console.log("Location table created!");
 	}).run(

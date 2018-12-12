@@ -6,6 +6,16 @@ function createTables() {
 	var db = new sqlite3.Database("./db/Storm.db");
 	db.serialize(() => {
 		db.run(
+			"CREATE TABLE IF NOT EXISTS locations (\
+				cz_fips			INTEGER,\
+				state_fips		INTEGER,\
+				cz_type			TEXT,\
+				cz_name			TEXT,\
+				state_name		TEXT,\
+				PRIMARY KEY(cz_fips, state_fips)\
+			);", [], (err) => {
+				console.log("Weather Events table created!");
+		}).run(
 			"CREATE TABLE IF NOT EXISTS weather_events (\
 				event_id		INTEGER,\
 				episode_id		INTEGER,\
@@ -17,17 +27,7 @@ function createTables() {
 				cz_fips			INTEGER,\
 				state_fips		INTEGER,\
 				PRIMARY KEY (event_id),\
-				FOREIGN KEY (cz_fips, state_fips) references location\
-			);", [], (err) => {
-				console.log("Weather Events table created!");
-		}).run(
-			"CREATE TABLE IF NOT EXISTS locations (\
-				cz_fips			INTEGER,\
-				state_fips		INTEGER,\
-				cz_type			TEXT,\
-				cz_name			TEXT,\
-				state_name		TEXT,\
-				PRIMARY KEY(cz_fips, state_fips)\
+				FOREIGN KEY (cz_fips, state_fips) references locations\
 			);", [], (err) => {
 				console.log("Location table created!");
 		}).run(
@@ -61,8 +61,9 @@ function parseDetailsJson(data) {
 	function updateProgressBar() {
 		rowsProcessed++;
 		var percentComplete = Math.floor((rowsProcessed / rowCount) * 100) + "%";
-		$("#downloadbar").css("width", percentComplete);
-		$("#downloadbar").html(percentComplete);
+		console.log(percentComplete);
+		//$("#downloadbar").css("width", percentComplete);
+		//$("#downloadbar").html(percentComplete);
 	}
 	
 	var db = new sqlite3.Database("./db/Storm.db", (err) => {

@@ -5,6 +5,7 @@ function allQuery(sql) {
 	var db = new sqlite3.Database("./db/Storm.db", (err) => {
 	});
 	db.all(sql, [], (err, rows) => {
+		console.clear();
 		console.log(rows);
 	});
 	db.close((err) => {
