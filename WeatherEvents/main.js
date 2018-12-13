@@ -13,6 +13,8 @@ function createWindow() {
 	win.loadFile("index.html");
 	win.setMenu(null);
 	
+	win.webContents.openDevTools();
+	
 	win.webContents.on("before-input-event", (event, input) => {
 		if (input.key == "F12") {
 			if (win.webContents.isDevToolsOpened()) {
